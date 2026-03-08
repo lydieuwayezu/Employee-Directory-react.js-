@@ -1,0 +1,38 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Print Styles - Clean layout for printing */
+@media print {
+  body {
+    background: white;
+    padding: 10px;
+  }
+  
+  .search-container,
+  .loading,
+  .error {
+    display: none !important;
+  }
+  
+  .cards-container {
+    display: block !important;
+  }
+  
+  .employee-card {
+    page-break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+}

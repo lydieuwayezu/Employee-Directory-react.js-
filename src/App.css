@@ -1,0 +1,158 @@
+/* Main Container */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Styles */
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Search Container */
+.search-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 250px;
+  padding: 15px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.print-button {
+  padding: 15px 30px;
+  font-size: 1rem;
+  background: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.print-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  background: #f0f0f0;
+}
+
+/* Cards Grid - Responsive Layout */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  color: white;
+  padding: 50px;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  margin: 20px auto;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error {
+  text-align: center;
+  color: white;
+  padding: 50px;
+  background: rgba(255, 0, 0, 0.2);
+  border-radius: 15px;
+}
+
+/* No Results Message */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: white;
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .search-container {
+    flex-direction: column;
+  }
+  
+  .search-input {
+    min-width: 100%;
+  }
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .header p {
+    font-size: 1rem;
+  }
+  
+  .cards-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
