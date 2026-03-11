@@ -73,11 +73,6 @@ function App() {
     setFilteredEmployees(results);
   }, [searchTerm, employees, sortBy]); // Runs when searchTerm, employees, or sortBy change
 
-  // Function to handle printing
-  const handlePrint = () => {
-    window.print(); // Browser's built-in print function
-  };
-
   // Function to clear search
   const handleClearSearch = () => {
     setSearchTerm(''); // Reset search term to empty
@@ -112,12 +107,6 @@ function App() {
       {/* Header Section */}
       <header className="header">
         <h1>🏢 Employee Directory</h1>
-        <div className="stats-container">
-          <div className="stat-badge active">
-            <span className="stat-number">{filteredEmployees.length}</span>
-            <span className="stat-label">Employees</span>
-          </div>
-        </div>
       </header>
 
       {/* Search and Actions Section */}
@@ -147,10 +136,6 @@ function App() {
             <option value="email">Sort by Email</option>
             <option value="company">Sort by Company</option>
           </select>
-          
-          <button onClick={handlePrint} className="print-button">
-            🖨️ Print
-          </button>
         </div>
       </div>
 
