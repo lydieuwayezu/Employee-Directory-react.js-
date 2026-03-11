@@ -113,13 +113,9 @@ function App() {
       <header className="header">
         <h1>🏢 Employee Directory</h1>
         <div className="stats-container">
-          <div className="stat-badge">
-            <span className="stat-number">{employees.length}</span>
-            <span className="stat-label">Total</span>
-          </div>
           <div className="stat-badge active">
             <span className="stat-number">{filteredEmployees.length}</span>
-            <span className="stat-label">Showing</span>
+            <span className="stat-label">Employees</span>
           </div>
         </div>
       </header>
