@@ -9,6 +9,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState(''); // Store search input
   const [loading, setLoading] = useState(true); // Track loading status
   const [error, setError] = useState(null); // Track any errors
+  const [sortBy, setSortBy] = useState('name'); // Track sorting option
 
   // useEffect Hook - Runs when component first loads
   // This is where we fetch data from the API
@@ -43,11 +44,11 @@ function App() {
     fetchEmployees(); // Call the function
   }, []); // Empty array means this runs only once when component mounts
 
-  // Handle search functionality
-  // This function runs every time the user types in the search box
+  // Handle search and sorting functionality
+  // This function runs every time the user types in the search box or changes sort option
   useEffect(() => {
     // Filter employees based on search term
-    const results = employees.filter((employee) => {
+    let results = employees.filter((employee) => {
       // Convert search term and employee data to lowercase for case-insensitive search
       const searchLower = searchTerm.toLowerCase();
       const nameMatch = employee.name.toLowerCase().includes(searchLower);
@@ -57,12 +58,29 @@ function App() {
       return nameMatch || emailMatch;
     });
     
+    // Sort the filtered results based on selected option
+    results = results.sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.name.localeCompare(b.name); // Sort alphabetically by name
+      } else if (sortBy === 'email') {
+        return a.email.localeCompare(b.email); // Sort alphabetically by email
+      } else if (sortBy === 'company') {
+        return a.company.name.localeCompare(b.company.name); // Sort by company name
+      }
+      return 0;
+    });
+    
     setFilteredEmployees(results);
-  }, [searchTerm, employees]); // Runs when searchTerm or employees change
+  }, [searchTerm, employees, sortBy]); // Runs when searchTerm, employees, or sortBy change
 
   // Function to handle printing
   const handlePrint = () => {
     window.print(); // Browser's built-in print function
+  };
+
+  // Function to clear search
+  const handleClearSearch = () => {
+    setSearchTerm(''); // Reset search term to empty
   };
 
   // Show loading message while fetching data
@@ -93,22 +111,51 @@ function App() {
     <div className="container">
       {/* Header Section */}
       <header className="header">
-        <h1>Employee Directory</h1>
-        <p>Total Employees: {filteredEmployees.length}</p>
+        <h1>🏢 Employee Directory</h1>
+        <div className="stats-container">
+          <div className="stat-badge">
+            <span className="stat-number">{employees.length}</span>
+            <span className="stat-label">Total</span>
+          </div>
+          <div className="stat-badge active">
+            <span className="stat-number">{filteredEmployees.length}</span>
+            <span className="stat-label">Showing</span>
+          </div>
+        </div>
       </header>
 
       {/* Search and Actions Section */}
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search by name or email..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input
-          className="search-input"
-        />
-        <button onClick={handlePrint} className="print-button">
-          🖨️ Print All Cards
-        </button>
+      <div className="controls-wrapper">
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="🔍 Search by name or email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input
+            className="search-input"
+          />
+          {searchTerm && (
+            <button onClick={handleClearSearch} className="clear-button">
+              ✕
+            </button>
+          )}
+        </div>
+        
+        <div className="actions-container">
+          <select 
+            value={sortBy} 
+            onChange={(e) => setSortBy(e.target.value)}
+            className="sort-select"
+          >
+            <option value="name">Sort by Name</option>
+            <option value="email">Sort by Email</option>
+            <option value="company">Sort by Company</option>
+          </select>
+          
+          <button onClick={handlePrint} className="print-button">
+            🖨️ Print
+          </button>
+        </div>
       </div>
 
       {/* Employee Cards Grid */}
